@@ -32,6 +32,6 @@ public class Course {
     @Column(name = "department_name", nullable = false)
     private String departmentName; // 课程所属部门名称
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 创建时间
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt;
 }

@@ -28,13 +28,14 @@ public class User {
     @Column(nullable = false)
     private Role role; // 用户角色（学生, 教师, 管理员）
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status = "ACTIVE"; // 用户状态（默认 active）
+    private UserStatus status = UserStatus.ACTIVE; // 用户状态
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 创建时间
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt; // 创建时间（由数据库默认值维护）
 
     public enum Role {
-        STUDENT, TEACHER, ADMIN // 枚举角色类型
+        STUDENT, TEACHER, ADMIN
     }
 }

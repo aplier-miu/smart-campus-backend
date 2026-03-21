@@ -17,21 +17,28 @@ public class Profile {
     private Long id; // 主键ID
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user; // 关联用户表
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user; // 关联用户表（一对一）
 
     @Column(name = "full_name")
-    private String fullName; // 用户真实姓���
+    private String fullName;
 
-    private String gender; // 性别，例如 "M" 或 "F"
+    private String gender;
 
     @Column(length = 15)
-    private String phone; // 联系电话
+    private String phone;
 
-    private String address; // 住址
+    private String address;
 
-    private String avatarUrl; // 用户头像
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 创建时间
+    @Lob
+    private String bio;
+
+    @Column(name = "date_of_birth")
+    private java.time.LocalDate dateOfBirth;
+
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt;
 }

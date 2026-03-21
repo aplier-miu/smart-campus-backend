@@ -36,6 +36,6 @@ public class TeachingClass {
     @Column(nullable = false)
     private String semester; // 学期，例 "2026-Spring"
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now(); // 创建时间
+    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime createdAt;
 }

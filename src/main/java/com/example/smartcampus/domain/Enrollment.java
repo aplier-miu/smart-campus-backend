@@ -27,6 +27,6 @@ public class Enrollment {
     @JoinColumn(name = "class_id", nullable = false)
     private TeachingClass teachingClass; // 关联教学班表
 
-    @Column(name = "enroll_time", nullable = false)
-    private LocalDateTime enrollTime = LocalDateTime.now(); // 选课时间
+    @Column(name = "enroll_time", nullable = false, updatable = false, insertable = false)
+    private LocalDateTime enrollTime;
 }
