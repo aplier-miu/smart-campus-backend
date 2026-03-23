@@ -2,36 +2,35 @@ package com.example.smartcampus.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-/**
- * 课程表实体类，对应 courses 表
- */
+@Data
 @Entity
 @Table(name = "courses")
-@Data
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 主键ID
+    private Long id;
 
-    @Column(name = "course_code", nullable = false, unique = true)
-    private String courseCode; // 课程代码，唯一
+    @Column(name = "course_code", nullable = false, unique = true, length = 50)
+    private String courseCode;
 
-    @Column(name = "course_name", nullable = false)
-    private String courseName; // 课程名称
+    @Column(name = "course_name", nullable = false, length = 100)
+    private String courseName;
 
-    @Lob
-    private String description; // 课程详细描述
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Column(nullable = false)
-    private int credits; // 学分数
+    private int credits;
 
-    @Column(name = "department_name", nullable = false)
-    private String departmentName; // 课程所属部门名称
+    @Column(name = "department_name", nullable = false, length = 100)
+    private String departmentName;
 
-    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 }

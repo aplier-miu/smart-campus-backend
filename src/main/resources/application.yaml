@@ -20,3 +20,7 @@ springdoc:
     path: /swagger-ui.html
     operationsSorter: alpha
     tagsSorter: alpha
+
+jwt:
+  secret: "smartcampus-super-secret-key-must-be-very-long-1234567890"
+  expiration: 86400000 # 24小时，毫秒
