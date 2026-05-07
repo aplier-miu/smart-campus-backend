@@ -3,11 +3,13 @@ package com.example.smartcampus.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
-/**
- * 成绩表实体类，对应 grades 表
- */
 @Entity
-@Table(name = "grades")
+@Table(
+        name = "grades",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"student_id", "class_id", "grade_type"})
+        }
+)
 @Data
 public class Grade {
 

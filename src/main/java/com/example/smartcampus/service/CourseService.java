@@ -1,8 +1,9 @@
 package com.example.smartcampus.service;
 
 import com.example.smartcampus.domain.Course;
-import com.example.smartcampus.dto.CourseResponse;
-import com.example.smartcampus.dto.CreateCourseRequest;
+import com.example.smartcampus.dto.course.CourseResponse;
+import com.example.smartcampus.dto.course.CreateCourseRequest;
+import com.example.smartcampus.dto.course.UpdateCourseRequest;
 import com.example.smartcampus.exception.BusinessException;
 import com.example.smartcampus.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,25 @@ public class CourseService {
 
     public List<CourseResponse> listCourses() {
         return courseRepository.findAll().stream().map(this::toResp).toList();
+    }
+
+    public CourseResponse updateCourse(Long id, UpdateCourseRequest request) {
+        Course c = courseRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("课程不存在"));
+
+        c.setCourseName(request.getCourseName());
+        c.setDescription(request.getDescription());
+        c.setCredits(request.getCredits());
+        c.setDepartmentName(request.getDepartmentName());
+
+        Course saved = courseRepository.save(c);
+        return toResp(saved);
+    }
+
+    public void deleteCourse(Long id) {
+        Course c = courseRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("课程不存在"));
+        courseRepository.delete(c);
     }
 
     private CourseResponse toResp(Course c) {

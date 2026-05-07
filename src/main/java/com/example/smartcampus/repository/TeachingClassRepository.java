@@ -1,18 +1,22 @@
 package com.example.smartcampus.repository;
 
 import com.example.smartcampus.domain.TeachingClass;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * 教学班表仓储接口
- */
 public interface TeachingClassRepository extends JpaRepository<TeachingClass, Long> {
+    Optional<TeachingClass> findByClassCode(String classCode);
+    List<TeachingClass> findByCourseId(Long courseId);
+    List<TeachingClass> findByTeacherId(Long teacherId);
 
-    // 根据课程ID查找所有教学班
-    List<TeachingClass> findByCourse_Id(Long courseId);
-
-    // 根据教师ID查找教学班
-    List<TeachingClass> findByTeacher_Id(Long teacherId);
+    // 并发保护：选课时锁定该教学班记录（select ... for update）
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select t from TeachingClass t where t.id = :id")
+    Optional<TeachingClass> findByIdForUpdate(@Param("id") Long id);
 }

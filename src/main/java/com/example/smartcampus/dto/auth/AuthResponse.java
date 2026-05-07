@@ -1,4 +1,4 @@
-package com.example.smartcampus.dto;
+package com.example.smartcampus.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

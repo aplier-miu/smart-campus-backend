@@ -24,3 +24,10 @@ springdoc:
 jwt:
   secret: "smartcampus-super-secret-key-must-be-very-long-1234567890"
   expiration: 86400000 # 24小时，毫秒
+
+ai:
+  mode: llm
+  base-url: http://localhost:11434
+  api-key: local
+  model: qwen2.5:7b
+  timeout-seconds: 120

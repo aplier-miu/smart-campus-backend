@@ -1,4 +1,4 @@
-package com.example.smartcampus.dto;
+package com.example.smartcampus.dto.auth;
 
 import com.example.smartcampus.domain.User;
 import jakarta.validation.constraints.Email;

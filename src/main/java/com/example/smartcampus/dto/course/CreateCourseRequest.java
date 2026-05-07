@@ -1,4 +1,4 @@
-package com.example.smartcampus.dto;
+package com.example.smartcampus.dto.course;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

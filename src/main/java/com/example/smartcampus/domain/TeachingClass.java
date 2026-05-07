@@ -2,40 +2,42 @@ package com.example.smartcampus.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
-/**
- * 教学班表实体类，对应 teaching_classes 表
- */
+@Data
 @Entity
 @Table(name = "teaching_classes")
-@Data
 public class TeachingClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 主键ID
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course; // 关联课程表
+    @Column(name = "class_code", nullable = false, unique = true, length = 64)
+    private String classCode;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id", nullable = false)
-    private User teacher; // 关联教师用户（users表）
+    @Column(name = "course_id", nullable = false)
+    private Long courseId;
 
-    @Column(name = "class_code", nullable = false, unique = true)
-    private String classCode; // 教学班编号
+    @Column(name = "teacher_id", nullable = false)
+    private Long teacherId;
+
+    @Column(name = "teacher_name", nullable = false, length = 64)
+    private String teacherName;
+
+    @Column(name = "semester", nullable = false, length = 32)
+    private String semester;
 
     @Column(name = "max_students", nullable = false)
-    private Integer maxStudents = 50; // 最大学生人数（默认50）
+    private Integer maxStudents;
 
-    @Column(name = "current_students")
-    private Integer currentStudents = 0; // 当前已选学生人数
+    @Column(name = "current_students", nullable = false)
+    private Integer currentStudents;
 
-    @Column(nullable = false)
-    private String semester; // 学期，例 "2026-Spring"
+    @Column(name = "capacity", nullable = false)
+    private Integer capacity;
 
-    @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 }

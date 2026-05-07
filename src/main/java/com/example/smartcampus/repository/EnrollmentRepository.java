@@ -4,15 +4,14 @@ import com.example.smartcampus.domain.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-/**
- * 选课表仓储接口
- */
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
-    // 根据学生ID查询选课列表
-    List<Enrollment> findByStudent_Id(Long studentId);
+    boolean existsByStudent_IdAndTeachingClass_Id(Long studentId, Long teachingClassId);
 
-    // 根据教学班ID查询选课列表
+    Optional<Enrollment> findByStudent_IdAndTeachingClass_Id(Long studentId, Long teachingClassId);
+
+    List<Enrollment> findByStudent_Id(Long studentId);
     List<Enrollment> findByTeachingClass_Id(Long teachingClassId);
 }

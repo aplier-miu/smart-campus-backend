@@ -34,6 +34,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .subject(user.getUsername())
+                .claim("userId", user.getId())          // 新增
                 .claim("role", user.getRole().name())
                 .issuedAt(now)
                 .expiration(exp)
@@ -43,6 +44,20 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return parseClaims(token).getSubject();
+    }
+
+    public Long extractUserId(String token) {
+        Object v = parseClaims(token).get("userId");
+        if (v == null) return null;
+        if (v instanceof Integer i) return i.longValue();
+        if (v instanceof Long l) return l;
+        if (v instanceof String s) return Long.parseLong(s);
+        throw new IllegalArgumentException("token 中 userId 类型非法");
+    }
+
+    public String extractRole(String token) {
+        Object v = parseClaims(token).get("role");
+        return v == null ? null : String.valueOf(v);
     }
 
     public boolean isTokenValid(String token) {
